@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- 
-  @title: encumberCalc
+  
+	@title: encumberCalc
 	@overview: Encumberance Calculator
 	@author: Cedric/Matt
 	
@@ -19,6 +20,7 @@
 
 	@setup:
 	- No setup required; this trigger is all set to go (view inventory to test).
+
 -->
 <!DOCTYPE MudletPackage>
 <MudletPackage version="1.001">
