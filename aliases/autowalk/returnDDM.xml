@@ -1,4 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+  @title: returnDDM
+	@overview: Autowalk to return to City Square from Dark Dwarf Mine entrance
+	@author: Karrade/Sean
+	@command: returnddm
+	
+	@description: this autowalk script will send all commands to take your
+	character from Dark Dwarf Mine (DDM) first room/exit to the City Square.
+	
+	@install:
+	- download this file
+	- in Mudlet, click "Alias" button
+	- click "Import" button and select this file
+
+	@usage:
+	- Go to the Dark Dwarf first guard room/dungeon exit
+	- Run this command: returnddm
+	- Your character will start autowalking to the City Square.
+-->
 <!DOCTYPE MudletPackage>
 <MudletPackage version="1.001">
 	<AliasPackage>

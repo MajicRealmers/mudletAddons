@@ -1,4 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+  @title: goDDM
+	@overview: Autowalk to Dark Dwarf Mines
+	@author: Karrade/Sean
+	@command: goddm
+	
+	@description: this autowalk script will send all commands to take your
+	character from City Square to the Dark Dwarf Mine (DDM) entrance.
+	
+	@install:
+	- download this file
+	- in Mudlet, click "Alias" button
+	- click "Import" button and select this file
+
+	@usage:
+	- Go to the City Square
+	- Run this command: goddm
+	- Your character will start autowalking to the DDM.
+-->
 <!DOCTYPE MudletPackage>
 <MudletPackage version="1.001">
 	<AliasPackage>
