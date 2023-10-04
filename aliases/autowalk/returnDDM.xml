@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE MudletPackage>
+<MudletPackage version="1.001">
+	<AliasPackage>
+		<Alias isActive="yes" isFolder="no">
+			<name>returnDDM</name>
+			<script>-- 
+-- Command: "returnddm"
+--
+-- Run it from the very first room of the DDM:
+-- "Dark Dwarf Mines, Guard Chamber"
+--
+-- This will bring you back to the City Square.
+send("push eye")
+send("go passage")
+send("go hole")
+send("go crack")
+send("sw")
+send("w", 3)
+send("nw")
+send("w")
+send("sw")
+send("s")
+send("sw")
+send("w", 3)
+send("u")
+send("push stone")
+send("go passage")
+send("s")
+send("w", 4)
+send("n")
+send("w", 3)
+send("u")
+send("w")
+send("s")
+send("w", 2)
+send("s", 2)
+</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^returnddm$</regex>
+		</Alias>
+	</AliasPackage>
+</MudletPackage>

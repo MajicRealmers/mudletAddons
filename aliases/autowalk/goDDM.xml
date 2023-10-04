@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE MudletPackage>
+<MudletPackage version="1.001">
+	<AliasPackage>
+		<Alias isActive="yes" isFolder="no">
+			<name>goDDM</name>
+			<script>
+-- Command: "goddm"
+--
+-- Run it from the City Square to be autowalked to the Dark Dwarf Mines.
+--
+send("n", 2)
+send("e", 2)
+send("n")
+send("e")
+send("go manhole")
+send("e", 4)
+send("s")
+send("e", 4)
+send("n")
+send("push rock")
+send("go passage")
+send("d")
+send("e", 3)
+send("ne")
+send("n")
+send("ne")
+send("e")
+send("se")
+send("e", 5)
+send("ne")
+send("go crack")
+send("go hole")
+send("push button")
+send("go passage")
+</script>
+			<command></command>
+			<packageName></packageName>
+			<regex>^goddm$</regex>
+		</Alias>
+	</AliasPackage>
+</MudletPackage>
