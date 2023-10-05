@@ -1,0 +1,799 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+  
+	@title: autoReroll
+	@overview: Automatically rerolls your character when desired stats are reached.
+	@type: package
+	@author: Ahz
+	
+	@install:
+	- download this file
+	- in Mudlet, click "Packages" button
+	- click "Install new package" button and select this file
+    - 
+
+	@setup:
+	- No setup required; this trigger is all set to go (view inventory to test).
+
+-->
+<!DOCTYPE MudletPackage>
+<MudletPackage version="1.001">
+	<TriggerPackage>
+		<TriggerGroup isActive="no" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+			<name>mr_autoReroll</name>
+			<script></script>
+			<triggerType>0</triggerType>
+			<conditonLineDelta>0</conditonLineDelta>
+			<mStayOpen>0</mStayOpen>
+			<mCommand></mCommand>
+			<packageName></packageName>
+			<mFgColor>#ff0000</mFgColor>
+			<mBgColor>#ffff00</mBgColor>
+			<mSoundFile></mSoundFile>
+			<colorTriggerFgColor>#000000</colorTriggerFgColor>
+			<colorTriggerBgColor>#000000</colorTriggerBgColor>
+			<regexCodeList />
+			<regexCodePropertyList />
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="yes" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="yes" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Automatically rerolls characters</name>
+				<script>local strength, intelligence, piety = multimatches[1][2], multimatches[1][3], multimatches[1][4]
+local charm, stamina, agility = multimatches[2][2], multimatches[2][3], multimatches[2][4]
+initReRollData()
+
+reRoller(tonumber(strength), tonumber(intelligence), tonumber(piety), tonumber(charm), tonumber(stamina), tonumber(agility))
+</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>2</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>transparent</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#008000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>^Strength\s*:\s*(\d+)\s+Intelligence\s*:\s*(\d+)\s+Piety\s*:\s*(\d+)\s*</string>
+					<string>^Charm\s*:\s*(\d+)\s+Stamina\s*:\s*(\d+)\s+Agility\s*:\s*(\d+)\s*</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>1</integer>
+					<integer>1</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Initialize</name>
+				<script>send(rerollChoices.keepXP)
+</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>Do you want to keep the experience? (Y/N)</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>2</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>pacifist?</name>
+				<script>send(rerollChoices.pacifist)
+initReRollData()
+</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>Do you wish to be a PERMANENTLY pacifistic character?</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>2</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>char name</name>
+				<script>send(rerollChoices.name)
+</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>Enter your character's FIRST name: </string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>2</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>race?</name>
+				<script>send(rerollChoices.race)</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>What RACE would you like your character to be?</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>2</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>get race name for key</name>
+				<script>raceNameKey = matches[2]</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>^You are a (\S+).*</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>1</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>class?</name>
+				<script>send(rerollChoices.class)
+</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>What GUILD would you like for your character?</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>2</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>M/F?</name>
+				<script>send(rerollChoices.gender)</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>Is your character Male or Female?</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>2</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>hair color?</name>
+				<script>send(rerollChoices.hair)</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>Enter the HAIR COLOR of your character:</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>2</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>eyes?</name>
+				<script>send(rerollChoices.eyes)</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>Enter the EYE COLOR of your character:</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>2</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>welcome to the realm</name>
+				<script></script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand>f</mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>You can type QUIT or BYE at any time to exit the Majic Realm.</string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>2</integer>
+				</regexCodePropertyList>
+			</Trigger>
+			<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>You will now begin a short training course on</name>
+				<script>send("look sign")
+send("n")
+</script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList>
+					<string>You will now begin a short training course on </string>
+				</regexCodeList>
+				<regexCodePropertyList>
+					<integer>2</integer>
+				</regexCodePropertyList>
+			</Trigger>
+		</TriggerGroup>
+	</TriggerPackage>
+	<TimerPackage />
+	<AliasPackage />
+	<ActionPackage />
+	<ScriptPackage>
+		<Script isActive="yes" isFolder="no">
+			<name>helpers</name>
+			<packageName></packageName>
+			<script>-- Define the function to colorize a number based on its relation to min and max
+function getNumGradientColor(num, min, max, highIsBeneficial)
+    local colorScale = {
+        "red",
+        "orange_red",
+        "orange",
+        "peach_puff",
+        "yellow",
+        "yellow_green",
+        "green"
+    }
+
+    local range = max - min
+    local numSteps = 7  -- Number of color steps in the gradient
+    local stepSize = range / numSteps
+
+    local index
+
+    if highIsBeneficial then
+        if num &lt;= min then
+            index = 1
+        elseif num &gt;= max then
+            index = numSteps
+        else
+            index = math.ceil((num - min) / stepSize)
+        end
+    else
+        if num &lt;= min then
+            index = numSteps
+        elseif num &gt;= max then
+            index = 1
+        else
+            index = numSteps - math.ceil((num - min) / stepSize) + 1
+        end
+    end
+
+    return colorScale[index]
+end
+
+
+-- Define the function to colorize a number based on its relation to min and max
+function colorizeNumber(num, color)
+    local ANSI_COLOR = "&lt;" .. color .. "&gt;"  -- Modify this line for your Mudlet configuration
+    return ANSI_COLOR .. num
+end
+
+function randomDelay(minn, maxx)
+    -- Generate a random delay within the specified range
+    local randomDelay = math.random(minn, maxx)
+    -- Wait for the random delay
+    wait(randomDelay)
+end
+
+function round(num)
+  return num + (2^52 + 2^51) - (2^52 + 2^51)
+end
+
+function getStats()
+    if xstats == nil then
+        xstats = {}
+    end
+    return xstats
+end
+
+</script>
+			<eventHandlerList />
+		</Script>
+		<ScriptGroup isActive="yes" isFolder="yes">
+			<name>mr_autoReroll</name>
+			<packageName></packageName>
+			<script></script>
+			<eventHandlerList />
+			<Script isActive="yes" isFolder="no">
+				<name>reroll main</name>
+				<packageName></packageName>
+				<script>function reRoller(strength, intelligence, piety, charm, stamina, agility)
+    local raceStats = getRaceStats(raceNameKey)
+    -- Assuming you have these variables defined: strength, intelligence, piety, charm, stamina, agility
+    local hasMin = false
+    hasMin = checkStats(raceStats, strength, intelligence, piety, charm, stamina, agility)
+
+    -- Calculate the sum of the individual stat values
+    local totalSum = strength + intelligence + piety + charm + stamina + agility
+
+    -- Calculate the differences for each stat
+    local strengthDiff = raceStats.stats.Stren - strength
+    local intelligenceDiff = raceStats.stats.Intel - intelligence
+    local pietyDiff = raceStats.stats.Piety - piety
+    local charmDiff = raceStats.stats.Charm - charm
+    local staminaDiff = raceStats.stats.Stami - stamina
+    local agilityDiff = raceStats.stats.Agili - agility
+
+    -- Now you have the differences for each stat and the sum of the individual stat values in the 'totalSum' variable
+
+    local totalDiff = strengthDiff + intelligenceDiff + pietyDiff + charmDiff + staminaDiff + agilityDiff
+
+    if totalSum &gt; rollHigh then
+        rollHigh = totalSum
+    end
+    if totalSum &lt; rollLow then
+        rollLow = totalSum
+    end
+
+    rollCount = rollCount + 1
+    rollSum = rollSum + totalSum
+    rollAvg = round(rollSum / rollCount)
+
+    cecho(f "\n\nMissing points -&lt;{getNumGradientColor(totalDiff, 0, 40, false)}&gt;{totalDiff}")
+
+    cecho(f "\nStr -&lt;{getNumGradientColor(strengthDiff, 1, 20, false)}&gt;{strengthDiff} ")
+    cecho(f " Int -&lt;{getNumGradientColor(intelligenceDiff, 1, 20, false)}&gt;{intelligenceDiff} ")
+    cecho(f " Pie -&lt;{getNumGradientColor(pietyDiff, 1, 20, false)}&gt;{pietyDiff} ")
+    cecho(f " Chm -&lt;{getNumGradientColor(charmDiff, 1, 20, false)}&gt;{charmDiff} ")
+    cecho(f " Sta -&lt;{getNumGradientColor(staminaDiff, 1, 20, false)}&gt;{staminaDiff} ")
+    cecho(f " Agl -&lt;{getNumGradientColor(agilityDiff, 1, 20, false)}&gt;{agilityDiff}")
+
+    cecho(f "\n\nSum: &lt;{getNumGradientColor(totalSum, 370, 410, true)}&gt;{totalSum}")
+
+    if rerollChoices.minStatKeepMode and hasMin then
+        accept(rerollChoices.autoAccept)
+    elseif totalSum &gt;= rerollChoices.minGeneralAcceptTotal then
+        accept(rerollChoices.autoAccept)
+    else
+        if totalSum &lt; rerollChoices.skipSum then -- too low, skip
+            send("\r")
+        else -- something to consider, no auto skip
+            highRollSumCount = highRollSumCount + 1
+        end
+    end
+
+    cecho(f "Roll# &lt;white&gt;{rollCount}    &lt;grey&gt;Avg: &lt;white&gt;{rollAvg}    &lt;grey&gt;High Count: &lt;white&gt;{highRollSumCount}     ")
+    cecho("Best: &lt;white&gt;" .. rollHigh)
+    cecho("\n&lt;:blue&gt;----------------------------------------------------------------------")
+
+end</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>Init and prefs - READ ME</name>
+				<packageName></packageName>
+				<script>--All the settings you need for this reroller are here
+--I did not add support to automate class picking because of the variance for races
+--    and I'm lazy.
+--You can pick default acceptance numbers for each race under each key for rerollStats.
+--Do not alter the stats key, that's used for maximum comparisons.
+
+-- race choice numbers:
+-- 1. human                          2. dwarf
+-- 3. gnome                          4. halfling
+-- 5. elf                            6. drow elf
+-- 7. orc                            8. lizard
+
+-- Hair options
+-- 1. light brown                    2. brown
+-- 3. dark brown                     4. light blonde
+-- 5. blonde                         6. dirty blonde
+-- 7. auburn                         8. red
+-- 9. black                         10. raven
+-- 11. grey                          12. white
+-- 13. silver                        14. golden
+-- 15. no
+
+-- Eye color options
+-- 1. black                          2. grey
+-- 3. pale grey                      4. brown
+-- 5. hazel                          6. green
+-- 7. blue                           8. steel
+-- 9. aqua                          10. violet
+-- 11. yellow                        12. obsidian
+-- 13. red
+
+function initReRollData(force)
+    force = force or false
+
+    if rerollChoices == nil or force then
+
+        rerollChoices = {}
+        rerollChoices.name = "Grimlor"
+        rerollChoices.pacifist = "N"
+        rerollChoices.race = 6
+        rerollChoices.hair = 8
+        rerollChoices.eyes = 12
+        rerollChoices.keepXP = "Y"
+        rerollChoices.gender = "m"
+
+        rerollChoices.minStatKeepMode = true -- enable minGeneralAcceptTotal for auto accept
+        rerollChoices.minGeneralAcceptTotal = 410 -- accept anything above this automatically
+        rerollChoices.skipSum = 400 -- skip anything below this automatically
+        rerollChoices.autoAccept = true
+
+        -- other script init
+        bestTotalDiff = 0
+        rollCount = 0
+        rollAvg = 0
+        rollSum = 0
+        rollLow = 0
+        rollHigh = 0
+        highRollSumCount = 0
+    end
+
+end
+
+-- Use rerollStats to set your minimum thresholds for auto accept by stats
+function getRaceStats(race)
+    -- Human
+    local human = {
+        race = "Human",
+        stats = {
+            Stren = 70,
+            Intel = 70,
+            Piety = 70,
+            Charm = 70,
+            Stami = 70,
+            Agili = 70
+        },
+        HP = "*",
+        EXPERIENCE = "--",
+        rerollStats = {
+            Stren = 69,
+            Intel = 65,
+            Piety = 65,
+            Charm = 68,
+            Stami = 68,
+            Agili = 69
+        },
+    }
+
+    -- Dwarf
+    local dwarf = {
+        race = "Dwarf",
+        stats = {
+            Stren = 75,
+            Intel = 55,
+            Piety = 85,
+            Charm = 50,
+            Stami = 90,
+            Agili = 65
+        },
+        HP = "++",
+        EXPERIENCE = "+15%",
+        rerollStats = {
+            Stren = 75,
+            Intel = 55,
+            Piety = 85,
+            Charm = 50,
+            Stami = 90,
+            Agili = 65
+        },
+    }
+
+    -- Gnome
+    local gnome = {
+        race = "Gnome",
+        stats = {
+            Stren = 80,
+            Intel = 75,
+            Piety = 55,
+            Charm = 60,
+            Stami = 85,
+            Agili = 65
+        },
+        HP = "+",
+        EXPERIENCE = "+10%",
+        rerollStats = {
+            Stren = 80,
+            Intel = 75,
+            Piety = 55,
+            Charm = 60,
+            Stami = 85,
+            Agili = 65
+        },
+    }
+
+    -- Halfling
+    local halfling = {
+        race = "Halfling",
+        stats = {
+            Stren = 50,
+            Intel = 70,
+            Piety = 65,
+            Charm = 65,
+            Stami = 85,
+            Agili = 85
+        },
+        HP = "-",
+        EXPERIENCE = "+15%",
+        rerollStats = {
+            Stren = 50,
+            Intel = 70,
+            Piety = 65,
+            Charm = 65,
+            Stami = 85,
+            Agili = 85
+        },
+    }
+
+    -- Elf
+    local elf = {
+        race = "Elf",
+        stats = {
+            Stren = 55,
+            Intel = 80,
+            Piety = 65,
+            Charm = 75,
+            Stami = 60,
+            Agili = 85
+        },
+        HP = "*",
+        EXPERIENCE = "+30",
+        rerollStats = {
+            Stren = 55,
+            Intel = 80,
+            Piety = 65,
+            Charm = 75,
+            Stami = 60,
+            Agili = 85
+        },
+    }
+
+    -- Drow Elf
+    local drowElf = {
+        race = "Drow-Elf",
+        stats = {
+            Stren = 50,
+            Intel = 90,
+            Piety = 70,
+            Charm = 65,
+            Stami = 55,
+            Agili = 90
+        },
+        HP = "*",
+        EXPERIENCE = "+35%",
+        rerollStats = {
+            Stren = 49,
+            Intel = 89,
+            Piety = 60,
+            Charm = 60,
+            Stami = 54,
+            Agili = 89
+        },
+    }
+
+    -- Orc
+    local orc = {
+        race = "Orc",
+        stats = {
+            Stren = 85,
+            Intel = 60,
+            Piety = 55,
+            Charm = 60,
+            Stami = 85,
+            Agili = 75
+        },
+        HP = "++",
+        EXPERIENCE = "-20%",
+        rerollStats = {
+            Stren = 85,
+            Intel = 60,
+            Piety = 55,
+            Charm = 60,
+            Stami = 85,
+            Agili = 75
+        },
+    }
+
+    -- Lizard Man
+    local lizardMan = {
+        race = "Lizard Man",
+        stats = {
+            Stren = 90,
+            Intel = 65,
+            Piety = 70,
+            Charm = 60,
+            Stami = 80,
+            Agili = 55
+        },
+        HP = "+++",
+        EXPERIENCE = "+5%",
+        rerollStats = {
+            Stren = 90,
+            Intel = 65,
+            Piety = 70,
+            Charm = 60,
+            Stami = 80,
+            Agili = 55
+        },
+    }
+
+    if race == 'human' then
+        return human
+    elseif race == 'dwarf' then
+        return dwarf
+    elseif race == 'gnome' then
+        return gnome
+    elseif race == 'halfling' then
+        return halfling
+    elseif race == 'elf' then
+        return elf
+    elseif race == 'drow' then
+        return drowElf
+    elseif race == 'orc' then
+        return orc
+    elseif race == 'lizard' then
+        return lizardMan
+    end
+
+end
+</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>helpers</name>
+				<packageName></packageName>
+				<script>-- Define a function to check if all numeric values are greater than or equal to the specified minimum values
+function checkStats(raceStats, strength, intelligence, piety, charm, stamina, agility)
+
+    if raceStats.rerollStats.Stren &gt; raceStats.stats.Stren or
+            raceStats.rerollStats.Intel &gt; raceStats.stats.Intel or
+            raceStats.rerollStats.Piety &gt; raceStats.stats.Piety or
+            raceStats.rerollStats.Charm &gt; raceStats.stats.Charm or
+            raceStats.rerollStats.Stami &gt; raceStats.stats.Stami or
+            raceStats.rerollStats.Agili &gt; raceStats.stats.Agili then
+        cecho("\n\n&lt;red&gt;Error: Minimum values exceed maximum values.\n")
+        return false
+    end
+
+    if strength &gt;= raceStats.rerollStats.Stren and
+            intelligence &gt;= raceStats.rerollStats.Intel and
+            piety &gt;= raceStats.rerollStats.Piety and
+            charm &gt;= raceStats.rerollStats.Charm and
+            stamina &gt;= raceStats.rerollStats.Stami and
+            agility &gt;= raceStats.rerollStats.Agili then
+        return true
+    else
+        return false
+    end
+end
+
+function checkStatsPct(raceStats, strength, intelligence, piety, charm, stamina, agility, strminPct, intminPct, pieminPct, charminPct, staminPct, agminPct)
+
+    local minStrength = raceStats.stats.Stren * (strminPct / 100)
+    local minIntelligence = raceStats.stats.Intel * (intminPct / 100)
+    local minPiety = raceStats.stats.Piety * (pieminPct / 100)
+    local minCharm = raceStats.stats.Charm * (charminPct / 100)
+    local minStamina = raceStats.stats.Stami * (staminPct / 100)
+    local minAgility = raceStats.stats.Agili * (agminPct / 100)
+
+    if strength &gt;= minStrength and
+            intelligence &gt;= minIntelligence and
+            piety &gt;= minPiety and
+            charm &gt;= minCharm and
+            stamina &gt;= minStamina and
+            agility &gt;= minAgility then
+        return true
+    else
+        return false
+    end
+end
+
+function accept(autoAccept)
+    echo("\n\n")
+
+    if autoAccept then
+        cecho("&lt;white:red&gt;AUTO ACCEPTING THIS!\n")
+
+        local countdown = 30  -- Initial countdown value
+        while countdown &gt; 0 do
+            if countdown &lt;= 10 then
+                -- Display the countdown in red for the last 10 seconds
+                cecho("&lt;white:red&gt;" .. countdown .. " ")
+            else
+                cecho("&lt;white:green&gt;" .. countdown .. " ")
+            end
+
+            -- Delay for 1 second
+            wait(1000)
+            countdown = countdown - 1
+        end
+
+        send("C")
+        randomDelay(8999, 9000)
+        send("Q")
+        randomDelay(9999, 9000)
+    else
+        cecho("&lt;white:green&gt;Auto accept is OFF, but this met criteria.")
+    end
+end
+
+</script>
+				<eventHandlerList />
+			</Script>
+		</ScriptGroup>
+	</ScriptPackage>
+	<KeyPackage />
+	<VariablePackage>
+		<HiddenVariables>
+			<name>matches</name>
+		</HiddenVariables>
+	</VariablePackage>
+</MudletPackage>

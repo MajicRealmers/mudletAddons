@@ -3,7 +3,8 @@
   
 	@title: encumberCalc
 	@overview: Encumberance Calculator
-	@author: Cedric/Matt
+	@type: trigger
+	@author: Cedric
 	
 	@description: when viewing your inventory, additional inline text will be
 	added to show your current item weight Encumberance status. Example:
