@@ -5,15 +5,26 @@
 	@overview: Automatically rerolls your character when desired stats are reached.
 	@type: package
 	@author: Ahz
+
+    @description: This auto-roll script will continuously reroll your character
+    until it reaches your desired stats. It has support for:
+    - saved race stats
+    - configurable minimum values for all races
+    - colorful view and extra metadata
+    - Configurable for full Q&A except race (click it yourself!)
+    - Runs through most of the train rooms after accepting
+    - Auto accept thresholds
+    - Pause and review threshold
 	
 	@install:
 	- download this file
 	- in Mudlet, click "Packages" button
 	- click "Install new package" button and select this file
-    - 
+    - Close the Package window
 
 	@setup:
-	- No setup required; this trigger is all set to go (view inventory to test).
+	- #TODO: add additional instructions here. Otherwise modify the `rerollStats`
+    values for the desired stats for you race.
 
 -->
 <!DOCTYPE MudletPackage>
