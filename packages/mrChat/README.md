@@ -13,3 +13,8 @@ lua installPackage("https://github.com/MajicRealmers/mudletAddons/raw/main/packa
 
 resetprofile
 ```
+
+## Tech Overview
+
+- Inspired by `CedsChatWindow` package
+- Forked from [Demonic's EMCO package](https://github.com/demonnic/EMCO)
