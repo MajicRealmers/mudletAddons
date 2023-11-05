@@ -9,7 +9,7 @@
 Run the following commands in the Mudlet command prompt:
 
 ```
-lua installPackage("https://github.com/MajicRealmers/mudletAddons/blob/main/packages/mrChat/build/mrChat.mpackage")
+lua installPackage("https://github.com/MajicRealmers/mudletAddons/raw/main/packages/mrChat/build/mrChat.mpackage")
 
 resetprofile
 ```
