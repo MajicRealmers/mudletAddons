@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version=1.0 encoding=UTF-8?>
 <!-- 
   @title: mr_autoWalk
 	@overview: Autowalk aliases
@@ -13,92 +13,49 @@
 	
 	@install:
 	- download this file
-	- in Mudlet, click "Packages" button
-	- click "Install new package" button and select this file
+	- in Mudlet, click Packages button
+	- click Install new package button and select this file
 	- Close the package window
-	- Click on the "Aliases" button
-	- Find the "mr_autoWalk" group
+	- Click on the Aliases button
+	- Find the mr_autoWalk group
 	- You will find all available autowalk commands in there.
 -->
 <!DOCTYPE MudletPackage>
-<MudletPackage version="1.001">
+<MudletPackage version=1.001>
 	<AliasPackage>
 <!-- 
   DDM Section (Dark Dwarf Mines) 
 -->
-			<AliasGroup isActive="yes" isFolder="yes">
+			<AliasGroup isActive=yes isFolder=yes>
 				<name>DDM</name>
 				<script>-- Dark Dwarf Mine autowalk aliases</script>
 				<command></command>
 				<packageName></packageName>
 				<regex></regex>
 <!-- goDDM: -->
-				<Alias isActive="yes" isFolder="no">
+				<Alias isActive=yes isFolder=no>
 					<name>goDDM</name>
 					<script>--
--- @command: "goddm"
+-- @command: goddm
 -- @description: Autowalk the player from the City Square to the Dark Dwarf Mine entrance.
 --
-send("n", 2)
-send("e", 2)
-send("n")
-send("e")
-send("go manhole")
-send("e", 4)
-send("s")
-send("e", 4)
-send("n")
-send("push rock")
-send("go passage")
-send("d")
-send("e", 3)
-send("ne")
-send("n")
-send("ne")
-send("e")
-send("se")
-send("e", 5)
-send("ne")
-send("go crack")
-send("go hole")
-send("push button")
-send("go passage")
+speedwalk("2n,2e,n,e,go,n,e,go manhole,4e,s,4e,n,push rock,go passage)
+speedwalk("d,e3,ne,n,ne,e,se,e5,ne,go crack,go hole,push button,go passage")
+
 </script>
 					<command></command>
 					<packageName></packageName>
 					<regex>^goddm$</regex>
 				</Alias>
 <!-- returnDDM: -->
-				<Alias isActive="yes" isFolder="no">
+				<Alias isActive=yes isFolder=no>
 					<name>returnDDM</name>
 					<script>--
 -- @command: returnddm
 -- @description: Autowalks the player form the first room of the Dark Dwarf Mine back to City Square.
 --
-send("push eye")
-send("go passage")
-send("go hole")
-send("go crack")
-send("sw")
-send("w", 3)
-send("nw")
-send("w")
-send("sw")
-send("s")
-send("sw")
-send("w", 3)
-send("u")
-send("push stone")
-send("go passage")
-send("s")
-send("w", 4)
-send("n")
-send("w", 3)
-send("u")
-send("w")
-send("s")
-send("w", 2)
-send("s", 2)
+speedwalk("push eye,go passage,go hole,go crack,sw,3w,nw,w,sw,s,sw,3w,u,push stone,go passage")
+speedwalk("s,4w,n,3w,u,w,s,2w,2s")
 </script>
 					<command></command>
 					<packageName></packageName>
@@ -108,7 +65,7 @@ send("s", 2)
 <!-- 
   PG Section (Proving Grounds) 
 -->
-			<AliasGroup isActive="yes" isFolder="yes">
+			<AliasGroup isActive=yes isFolder=yes>
 				<name>PG</name>
 				<script>-- Proving Grounds autowalk aliases</script>
 				<command></command>

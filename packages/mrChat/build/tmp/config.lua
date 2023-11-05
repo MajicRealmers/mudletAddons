@@ -1,7 +1,7 @@
 mpackage = [[mrChat]]
 author = [[Demonnic,Cedric,Karrade]]
 icon = [[computer.png]]
-title = [[Premade tabbed chat window using the EMCO package]]
+title = [[Majic Realm Chat Window]]
 description = [[# EMCO
 
 ## Prebuilt EMCO tabbed chat package
@@ -78,4 +78,4 @@ If you want to send lines to the EMCO in code yourself, you can use `demonnic.ch
   * (re)install the latest version of the package
 ]]
 version = [[0.1]]
-created = [[2023-11-05T17:21:51+0000]]
+created = [[2023-11-05T17:47:13+0000]]

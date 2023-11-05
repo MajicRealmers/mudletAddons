@@ -423,7 +423,7 @@ function EMCO:new(cons, container)
   else
     me:disableGag()
   end
-  me:setTimestampFormat(cons.timestampFormat or "HH:mm:ss")
+  me:setTimestampFormat(cons.timestampFormat or "HH:mm")
   me:setTimestampBGColor(cons.timestampBGColor or "blue")
   me:setTimestampFGColor(cons.timestampFGColor or "red")
   if me:fuzzyBoolean(cons.allTab) then
