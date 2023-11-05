@@ -1,0 +1,8 @@
+{
+  "package": "mrChat",
+  "version": "0.1",
+  "author": "Demonnic,Cedric,Karrade",
+  "title": "Premade tabbed chat window using the EMCO package",
+  "icon": "computer.png",
+  "outputFile": true
+}
